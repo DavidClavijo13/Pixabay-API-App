@@ -1,7 +1,8 @@
 import React from "react";
+import { Button } from "reactstrap";
 
 const Home = () => {
-  return <h1>Home</h1>;
+  return <Button>Home</Button>;
 };
 
 export default Home;
