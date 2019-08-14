@@ -39,6 +39,7 @@ class ImageTiles extends Component {
       );
     } else {
       imageListContent = null;
+      console.log(images);
     }
     return <div>{imageListContent}</div>;
   }

@@ -11,30 +11,34 @@ class Search extends Component {
     searchText: "",
     amount: 15,
     apiUrl: "https://pixabay.com/api",
-    ApiKey: "13304504-b05d2b31e11fb9848ac6b7064",
-    searchResults: []
+    apiKey: "13304504-b05d2b31e11fb9848ac6b7064",
+    images: []
+  };
+
+  onTextChange = e => {
+    const val = e.target.value;
+    this.setState({ [e.target.name]: val }, () => {
+      if (val === "") {
+        this.setState({ images: [] });
+      } else {
+        axios
+          .get(
+            `${this.state.apiUrl}/?key=${this.state.apiKey}&q=${
+              this.state.searchText
+            }&image_type=photo&per_page=${this.state.amount}`
+          )
+          .then(res => this.setState({ images: res.data.hits }))
+          .catch(err => console.log(err));
+      }
+    });
   };
 
   onAmountChange = (e, index, value) => {
     this.setState({ amount: e.target.value });
-    console.log(this.state.amount);
-  };
-
-  onTextChange = event => {
-    this.setState({ [event.target.name]: event.target.value }, () => {
-      axios
-        .get(
-          `${this.state.apiUrl}/?key=${this.state.ApiKey}&q=${
-            this.state.searchText
-          }&image_type=photo&per_page=${this.state.amount}`
-        )
-        .then(res => this.setState({ searchResults: res.data.hits }))
-        .catch(err => console.log(err));
-    });
   };
 
   render() {
-    console.log(this.state.searchResults);
+    console.log(this.state.images);
     return (
       <div>
         <TextField
@@ -58,8 +62,8 @@ class Search extends Component {
           <MenuItem value={50}>50</MenuItem>
         </Select>
         <br />
-        {this.state.searchResults > 0 ? (
-          <ImageTiles images={this.state.searchResults} />
+        {this.state.images.length > 0 ? (
+          <ImageTiles images={this.state.images} />
         ) : null}
       </div>
     );
