@@ -4,6 +4,8 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import axios from "axios";
 
+import ImageTiles from "../imagetiles/ImageTiles";
+
 class Search extends Component {
   state = {
     searchText: "",
@@ -13,8 +15,9 @@ class Search extends Component {
     searchResults: []
   };
 
-  onAmountChange = e => {
-    this.setState();
+  onAmountChange = (e, index, value) => {
+    this.setState({ amount: e.target.value });
+    console.log(this.state.amount);
   };
 
   onTextChange = event => {
@@ -23,12 +26,11 @@ class Search extends Component {
         .get(
           `${this.state.apiUrl}/?key=${this.state.ApiKey}&q=${
             this.state.searchText
-          }&image_type=photo&per_page${this.state.amount}`
+          }&image_type=photo&per_page=${this.state.amount}`
         )
         .then(res => this.setState({ searchResults: res.data.hits }))
         .catch(err => console.log(err));
     });
-    // console.log(event.target.value);
   };
 
   render() {
@@ -44,10 +46,10 @@ class Search extends Component {
         />
         <br />
         <Select
-          onChange={this.onAmountChange}
           name="amount"
           label="Amount"
           value={this.state.amount}
+          onChange={this.onAmountChange}
         >
           <MenuItem value={5}>5</MenuItem>
           <MenuItem value={10}>10</MenuItem>
@@ -56,6 +58,9 @@ class Search extends Component {
           <MenuItem value={50}>50</MenuItem>
         </Select>
         <br />
+        {this.state.searchResults > 0 ? (
+          <ImageTiles images={this.state.searchResults} />
+        ) : null}
       </div>
     );
   }
