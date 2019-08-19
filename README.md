@@ -1,5 +1,5 @@
-# React-Portfolio
-New, better portfolio
+# Pixabay API
+Pulls pictures from open api, used MUI for components
 
-## Original idea for this portfolio is to really exemplify my skills by creating a site 
-which I can use for my day to day. Potential employers will be able to see work ethinc and diligence.
+## Wanted to interact with public api to search for pictures free of ADs 
+I was successful and created what I set out to.
