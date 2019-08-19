@@ -6,7 +6,8 @@ import IconButton from "@material-ui/core/IconButton";
 import ZoomIn from "@material-ui/icons/ZoomIn";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import Dialog from "@material-ui/core/Dialog";
-// import Icon from "@material-ui/core/Icon";
+import DialogActions from "@material-ui/core/DialogActions";
+import Button from "@material-ui/core/Button";
 
 class ImageTiles extends Component {
   state = {
@@ -57,20 +58,20 @@ class ImageTiles extends Component {
       imageListContent = null;
     }
 
-    const actions = [
-      <IconButton label="Close" primary={true} onClick={this.handleClose} />
-    ];
+    // const actions = [
+    //   <IconButton label="Close" primary={true} onClick={this.handleClose} />
+    // ];
 
     return (
       <div>
         {imageListContent}
-        <Dialog
-          actions={actions}
-          modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-        >
+        <Dialog open={this.state.open}>
           <img src={this.state.currentImg} alt="" style={{ width: "100%" }} />
+          <DialogActions>
+            <Button onClick={this.handleClose} color="secondary">
+              Close
+            </Button>
+          </DialogActions>
         </Dialog>
       </div>
     );
